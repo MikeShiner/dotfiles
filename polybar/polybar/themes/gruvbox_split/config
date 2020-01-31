@@ -1,0 +1,356 @@
+;==========================================================
+;
+;
+;   ██████╗  ██████╗ ██╗  ██╗   ██╗██████╗  █████╗ ██████╗
+;   ██╔══██╗██╔═══██╗██║  ╚██╗ ██╔╝██╔══██╗██╔══██╗██╔══██╗
+;   ██████╔╝██║   ██║██║   ╚████╔╝ ██████╔╝███████║██████╔╝
+;   ██╔═══╝ ██║   ██║██║    ╚██╔╝  ██╔══██╗██╔══██║██╔══██╗
+;   ██║     ╚██████╔╝███████╗██║   ██████╔╝██║  ██║██║  ██║
+;   ╚═╝      ╚═════╝ ╚══════╝╚═╝   ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
+;
+;
+;   To learn more about how to configure Polybar
+;   go to https://github.com/polybar/polybar
+;
+;   The README contains a lot of information
+;
+;==========================================================
+; GruvBox Theme
+;https://github.com/enindu/dotfiles/blob/master/gruvbox/home/enindu/.config/polybar/config
+
+[colors]
+;background = ${xrdb:color0:#222}
+foreground = #ebdbb2
+background = #282828
+background-alt = #444
+;foreground = ${xrdb:color7:#222}
+foreground-alt = #555
+primary = #ffb52a
+secondary = #e60053
+alert = #bd2c40
+; GruvBox Colours
+red        = #fb4934
+blue       = #2489ab
+
+[bar/gruvbox]
+monitor = ${env:MONITOR}
+width = 100%
+height = 25
+;offset-x = 1%
+;offset-y = 1%
+radius = 0
+fixed-center = true
+
+background = 00${colors.background}
+foreground = ${colors.foreground}
+
+line-size = 2
+line-color = ${colors.foreground}
+
+border-size = 0
+border-color = ${colors.background}
+
+padding-left = 0
+padding-right = 0
+
+module-margin-left = 0
+module-margin-right = 0
+
+font-0 = Fira Mono:size=10;1
+;font-1 = unifont:fontformat=truetype:size=14:antialias=false;0
+font-1 = Font Awesome 5 Free:style=Solid:pixelsize=12;2
+font-2 = Font Awesome 5 Brands:style=Regular:pixelsize=12;2
+
+; MODULES
+modules-left = i3
+modules-center = 
+modules-right = wireless-network wired-network cpu  memory temperature battery pulseaudio date time poweroff
+
+tray-position = right
+tray-padding = 2
+;tray-background = #0063ff
+
+;override-redirect = true
+
+;scroll-up = bspwm-desknext
+;scroll-down = bspwm-deskprev
+
+;scroll-up = i3wm-wsnext
+;scroll-down = i3wm-wsprev
+
+cursor-click = pointer
+cursor-scroll = ns-resize
+
+[module/xwindow]
+type = internal/xwindow
+label = %title:0:30:...%
+
+[module/xkeyboard]
+type = internal/xkeyboard
+blacklist-0 = num lock
+
+format-prefix = " "
+format-prefix-foreground = ${colors.foreground-alt}
+format-prefix-underline = ${colors.secondary}
+
+label-layout = %layout%
+label-layout-underline = ${colors.secondary}
+
+label-indicator-padding = 2
+label-indicator-margin = 1
+label-indicator-background = ${colors.secondary}
+label-indicator-underline = ${colors.secondary}
+
+[module/filesystem]
+type = internal/fs
+interval = 25
+
+mount-0 = /
+
+label-mounted = %{F#0a81f5}%mountpoint%%{F-}: %percentage_used%%
+label-unmounted = %mountpoint% not mounted
+label-unmounted-foreground = ${colors.foreground-alt}
+
+[module/bspwm]
+type = internal/bspwm
+
+label-focused = %index%
+label-focused-background = ${colors.background-alt}
+label-focused-underline= ${colors.primary}
+label-focused-padding = 2
+
+label-occupied = %index%
+label-occupied-padding = 2
+
+label-urgent = %index%!
+label-urgent-background = ${colors.alert}
+label-urgent-padding = 2
+
+label-empty = %index%
+label-empty-foreground = ${colors.foreground-alt}
+label-empty-padding = 2
+
+; Separator in between workspaces
+; label-separator = |
+
+[module/i3]
+type = internal/i3
+format = <label-state> <label-mode>
+index-sort = true
+wrapping-scroll = false
+
+; Mouse Click
+enable-click = true
+
+; Display Icons
+fuzzy-match = true
+
+; Icons
+;ws-icon-0       = Home;
+
+; Only show workspaces on the same output as the bar
+pin-workspaces = true
+
+label-mode-padding = 2
+label-mode-foreground = #000
+label-mode-background = ${colors.primary}
+
+; Focused label
+label-focused            = %icon% %name%
+label-focused-background = ${colors.blue}
+label-focused-foreground = ${colors.foreground}
+label-focused-padding    = 2
+
+; Unfocused labels
+label-unfocused             = %icon% %name%
+label-unfocused-background  = ${colors.background}
+label-unfocused-foreground  = ${colors.foreground}
+label-unfocused-padding     = 2
+
+; Visible labels
+label-visible            = %icon% %name%
+label-visible-background = ${colors.background}
+label-visible-foreground = ${colors.foreground}
+label-visible-padding    = 2
+
+; Urgent labels
+label-urgent            = %icon% %name%
+label-urgent-foreground = ${colors.red}
+label-urgent-padding    = 2
+
+; Separator in between workspaces
+; label-separator = |
+
+; vim:ft=dosini
+
+[module/date]
+type = internal/date
+
+; Update interval
+interval = 1.0
+
+; Format
+date = %A, %d %B
+
+; Label
+label            =   %date%
+label-foreground = ${colors.foreground}
+label-background = ${colors.background}
+label-padding    = 1
+#format-prefix = "    "
+
+[module/time]
+type = internal/date
+; Update interval
+interval = 1.0
+; Format
+time = %I:%M%P
+; Label
+label            = %time%
+label-foreground = ${colors.foreground}
+label-background = ${colors.background}
+label-padding    = 1
+
+[module/lock]
+type = custom/text
+
+; Label
+content = 
+content-background = ${colors.yellow}
+content-foreground = ${colors.foreground}
+content-padding    = 2
+
+; Mouse click
+click-left = slock
+
+[module/logout]
+type = custom/text
+
+; Label
+content            = 
+content-background = ${colors.green}
+content-foreground = ${colors.foreground}
+content-padding    = 2
+
+; Mouse click
+click-left = i3-msg exit
+
+[module/poweroff]
+type = custom/text
+
+; Label
+content            = 
+content-background = ${colors.red}
+content-foreground = ${colors.foreground}
+content-padding    = 2
+label-font = 3
+
+; Mouse click
+click-left = ~/.config/i3/scripts/powermenu.sh
+
+[module/battery]
+type = internal/battery
+
+; Full battery level
+full-at = 95
+
+; Battery and adapter
+battery = BAT0
+adapter = AC
+
+; Charging label
+label-charging            =  %percentage%%
+label-charging-background = ${colors.background}
+label-charging-foreground = ${colors.foreground}
+label-charging-padding    = 2
+
+; Discharging label
+label-discharging            = %{F#f5d11d} %{F-} %percentage%%
+label-discharging-background = ${colors.background}
+label-discharging-foreground = ${colors.foreground}
+label-discharging-padding    = 2
+
+; Full label
+label-full            =  100%
+label-full-background = ${colors.background}
+label-full-foreground = ${colors.foreground}
+label-full-padding    = 2
+
+[module/temperature]
+type = internal/temperature
+
+; Label
+label            =  %temperature-c%
+label-background = ${colors.background}
+label-foreground = ${colors.foreground}
+label-padding    = 2
+
+; Warning label
+label-warn            =  %temperature%
+label-warn-background = ${colors.red}
+label-warn-foreground = ${colors.foreground}
+label-warn-padding    = 2
+
+[module/pulseaudio]
+type = internal/pulseaudio
+
+; Volume label
+label-volume            =  %percentage%%
+label-volume-background = ${colors.background}
+label-volume-foreground = ${colors.foreground}
+label-volume-padding    = 2
+
+; Muted label
+label-muted            =  -
+label-muted-background = ${colors.background}
+label-muted-foreground = ${colors.foreground}
+label-muted-padding    = 3
+
+[module/memory]
+type = internal/memory
+interval = 2
+label            = RAM %percentage_used%%
+label-background = ${colors.background}
+label-foreground = ${colors.foreground}
+label-padding    = 2
+ramp-coreload-spacing = 1
+
+[module/cpu]
+type = internal/cpu
+interval=0.5
+label = CPU %percentage:02%%
+label-padding    = 2
+left-click = KSysGuard
+label-background=${colors.background}
+
+[module/wired-network]
+type = internal/network
+label-connected =  %local_ip%
+label-connected-background = ${colors.background}
+label-disconnected =
+label-disconnected-background = ${colors.background}
+label-connected-padding = 2
+label-disconnected-padding = 2
+interval = 5.0
+interface = enp0s31f6
+
+[module/wireless-network]
+type = internal/network
+label-connected = %{A1:konsole:}   %signal%% %{A}
+label-connected-padding = 2
+label-background= ${colors.background}
+label-disconnected =
+label-padding = 2
+interval = 5.0
+interface = wlp0s20f3
+
+[settings]
+screenchange-reload     = true
+;compositing-background = xor
+;compositing-foreground = source
+;compositing-border     = over
+;pseudo-transparency    = false
+
+[global/wm]
+margin-top    = 10
+margin-bottom = 10

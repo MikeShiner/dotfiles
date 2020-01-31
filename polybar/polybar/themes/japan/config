@@ -1,0 +1,318 @@
+;==========================================================
+;
+;
+;   ██████╗  ██████╗ ██╗  ██╗   ██╗██████╗  █████╗ ██████╗
+;   ██╔══██╗██╔═══██╗██║  ╚██╗ ██╔╝██╔══██╗██╔══██╗██╔══██╗
+;   ██████╔╝██║   ██║██║   ╚████╔╝ ██████╔╝███████║██████╔╝
+;   ██╔═══╝ ██║   ██║██║    ╚██╔╝  ██╔══██╗██╔══██║██╔══██╗
+;   ██║     ╚██████╔╝███████╗██║   ██████╔╝██║  ██║██║  ██║
+;   ╚═╝      ╚═════╝ ╚══════╝╚═╝   ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
+;
+;
+;   To learn more about how to configure Polybar
+;   go to https://github.com/polybar/polybar
+;
+;   The README contains a lot of information
+;
+;==========================================================
+; Cloud Theme!!
+;==========================================================
+
+[colors]
+foreground = #FFFFFF
+background = #282828
+beige      = #C6C5B9
+blue       = #62929E
+dark-blue  = #3F4A54
+red        = #885053
+green      = #596F62
+pink       = #9B7C94
+
+[bar/main]
+monitor = ${env:MONITOR}
+width = 100%
+height = 30
+foreground = ${colors.foreground}
+background = ${colors.background}00
+enable-ipc = true
+border-bottom-size = 0
+border-left-size = 5
+border-right-size = 5
+bottom = true
+
+font-0 = Fira Mono:size=10;1
+font-1 = Font Awesome 5 Free:style=Solid:pixelsize=12;2
+font-2 = Font Awesome 5 Brands:style=Regular:pixelsize=12;2
+
+; ;;;;; Modules ;;;;;;; ;
+modules-left = power battery wired wireless sound
+modules-center = i3
+modules-right = previous playpause next spotify date time
+
+[module/i3]
+type = internal/i3
+format = <label-state> <label-mode>
+index-sort = ture
+wrapping-scroll = false
+enable-click = true
+cursor-click = pointer
+
+fuzzy-match = true
+pin-workspaces = true
+strip-wsnumbers = true
+ws-icon-0 = 1;
+ws-icon-1 = 2;
+ws-icon-2 = 3;
+ws-icon-3 = 4;
+ws-icon-4 = 5;
+ws-icon-5 = 6;
+ws-icon-default = 
+
+; Focused label
+label-focused            = %name%
+#label-focused-background = ${colors.blue}
+label-focused-foreground = ${colors.foreground}
+label-border-bottom-color=#FFFFFF
+label-focused-padding    = 2
+
+; Unfocused labels
+label-unfocused             = %icon%
+#label-unfocused-background  = ${colors.background}
+label-unfocused-foreground  = ${colors.foreground}
+label-unfocused-padding     = 2
+
+; Visible labels
+label-visible            = %name%
+#label-visible-background = ${colors.background}
+label-visible-foreground = ${colors.foreground}
+label-visible-padding    = 2
+
+; Urgent labels
+label-urgent            = %name%
+label-urgent-foreground = ${colors.red}
+#label-urgent-background = ${colors.background}
+label-urgent-padding    = 2
+
+[module/time]
+type = internal/date
+; Update interval
+interval = 1.0
+; Format
+time = %I:%M%P
+; Label
+label            = %time%
+label-foreground = ${colors.foreground}
+#label-background = ${colors.green}
+label-padding    = 2
+
+[module/date]
+type = internal/date
+
+; Update interval
+interval = 1.0
+
+; Format
+date = %A, %d %B
+
+; Label
+label            = %date%
+label-foreground = ${colors.foreground}
+#label-background = ${colors.green}
+label-padding    = 2
+#format-prefix = "    "
+
+[module/battery]
+type = internal/battery
+
+; Full battery level
+full-at = 95
+
+; Battery and adapter
+battery = BAT0
+adapter = AC
+
+; Charging label
+label-charging            = %{F#f5d11d}%{F-} %percentage%%
+#label-charging-background = ${colors.background}
+label-charging-foreground = ${colors.foreground}
+label-charging-padding    = 3
+
+; Discharging label
+format-discharging           = <ramp-capacity><label-discharging>
+label-discharging            = %percentage%%
+#label-discharging-background = ${colors.background}
+label-discharging-foreground = ${colors.foreground}
+label-discharging-padding    = 3
+
+#ramp-capacity-background = ${colors.background}
+ramp-capacity-foreground = ${colors.foreground}
+ramp-capacity-padding-left = 3
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
+
+; Full label
+label-full            =  100%
+#label-full-background = ${colors.background}
+label-full-foreground = ${colors.foreground}
+label-full-padding    = 2
+
+[module/wireless]
+type = internal/network
+format-connected = <label-connected>
+#format-connected = <ramp-signal> <label-connected>
+label-connected =  %essid%
+label-connected-padding = 2
+#label-connected-background= ${colors.background}
+label-connected-foreground= ${colors.foreground}
+
+ramp-signal-0 = 😱
+ramp-signal-1 = 😠
+ramp-signal-2 = 😒
+ramp-signal-3 = 😊
+ramp-signal-4 = 😃
+ramp-signal-5 = 😈
+
+label-disconnected =
+label-disconnected-background= ${colors.background}
+label-padding = 2
+interval = 5.0
+interface = wlp0s20f3
+
+[module/wired]
+type = internal/network
+label-connected =  %local_ip%
+label-connected-background = ${colors.background}
+label-connected-foreground = ${colors.foreground}
+label-disconnected =
+label-disconnected-background = ${colors.background}
+label-connected-padding = 2
+label-disconnected-padding = 2
+interval = 5.0
+interface = enp0s31f6
+
+[module/mpd]
+type = internal/mpd
+
+; Host where mpd is running (either ip or domain name)
+; Can also be the full path to a unix socket where mpd is running.
+host = 127.0.0.1
+port = 6600
+
+; Seconds to sleep between progressbar/song timer sync
+; Default: 1
+interval = 1
+
+format-online = <icon-prev> <icon-seekb> <icon-stop> <toggle> <icon-seekf> <icon-next>  <icon-repeat> <icon-random>  <bar-progress> <label-time>  <label-song>
+format-offline = <label-offline>
+label-song = 𝄞 %artist% - %title%
+label-offline = 🎜 mpd is offline
+label-offline-background=${colors.background}
+
+[module/sound]
+type = internal/pulseaudio
+
+; Volume label
+label-volume            =  %percentage%%
+#label-volume-background = ${colors.dark-blue}
+label-volume-foreground = ${colors.foreground}
+label-volume-padding    = 2
+
+; Muted label
+label-muted            =  -
+#label-muted-background = ${colors.red}
+label-muted-foreground = ${colors.foreground}
+label-muted-padding    = 3
+
+[module/power]
+type = custom/text
+
+; Label
+content            = 
+#content-background = ${colors.red}
+content-foreground = ${colors.foreground}
+content-padding    = 2
+label-font = 3
+
+; Mouse click
+click-left = ~/.config/i3/scripts/powermenu.sh
+
+[module/temperature]
+type = internal/temperature
+
+; Label
+label            =  %temperature-c%
+label-background = ${colors.background}
+label-foreground = ${colors.foreground}
+label-padding    = 2
+
+; Warning label
+label-warn            = %{F#C6C5B9}%{F-} %temperature%
+label-warn-background = ${colors.red}
+label-warn-foreground = ${colors.blue}
+label-warn-padding    = 2
+
+[module/memory]
+type = internal/memory
+interval = 2
+label            =  %percentage_used%%
+#label-background = ${colors.background}
+label-foreground = ${colors.foreground}
+label-padding    = 2
+ramp-coreload-spacing = 1
+
+[module/cpu]
+type = internal/cpu
+interval=0.5
+label =  %percentage:02%%
+label-padding    = 2
+#label-background= ${colors.background}
+label-foreground = ${colors.foreground}
+
+[module/previous]
+type = custom/script
+interval = 86400
+format = "%{T3}<label>"
+label-padding = 2
+label-margin-left = 0
+#label-background= ${colors.pink}
+format-background= #00000000
+; Previous song icon
+exec = echo ""
+; Check if spotify is running before displaying the icon
+exec-if = "pgrep spotify"
+click-left = "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous"
+
+[module/next]
+type = custom/script
+interval = 86400
+format = "%{T3}<label>"
+#format-background = ${colors.pink}
+; Next song icon
+exec = echo ""
+; Check if spotify is running before displaying the icon
+exec-if = "pgrep spotify"
+label-padding = 2
+click-left = "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next"
+
+[module/playpause]
+type = custom/script
+interval = 86400
+format = "<label>"
+exec = ~/.config/polybar/scripts/playpause.sh
+tail = true
+format-padding = 2
+#format-background = ${colors.pink}
+click-left = "playerctl play-pause"
+
+[module/spotify]
+type = custom/script
+interval = 1
+format-prefix = " "
+format = <label>
+#format-background = ${colors.background}
+format-padding = 2
+exec = python3 ~/scripts/spotify/spotify_status.py -t 45 -f '{artist}: {song}'
+click-left = i3-msg '[class="Spotify"] focus'
